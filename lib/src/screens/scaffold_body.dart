@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import '../routing/route_state.dart';
 import '../widgets/fade_transition_page.dart';
 import 'authors.dart';
+import 'books.dart';
 import 'settings.dart';
 
 class BookstoreScaffoldBody extends StatelessWidget {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  const BookstoreScaffoldBody({Key? key}) : super(key: key);
+  const BookstoreScaffoldBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class BookstoreScaffoldBody extends StatelessWidget {
         else if (currentRoute.pathTemplate.startsWith('/books') ||
             currentRoute.pathTemplate == '/')
           const FadeTransitionPage<void>(
-              child: SettingsScreen(), key: ValueKey('books'))
+              child: BooksScreen(), key: ValueKey('books'))
         else
           FadeTransitionPage<void>(
               child: Container(), key: const ValueKey('empty'))
