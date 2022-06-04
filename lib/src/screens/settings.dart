@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_navigation_and_routing/src/auth.dart';
 import 'package:url_launcher/link.dart';
 
 import '../routing/route_state.dart';
@@ -43,6 +44,9 @@ class SettingsContent extends StatelessWidget {
               'Settings',
               style: Theme.of(context).textTheme.headline4,
             ),
+            ElevatedButton(onPressed: () {
+              BookstoreAuthScope.of(context).signOut();
+            }, child: const Text('Sign out')),
             Link(
               uri: Uri.parse('/book/0'),
               builder: (context, followLink) => TextButton(
