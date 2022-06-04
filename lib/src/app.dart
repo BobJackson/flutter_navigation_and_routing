@@ -4,9 +4,8 @@ import 'auth.dart';
 import 'routing.dart';
 import 'screens/navigator.dart';
 
-
 class Bookstore extends StatefulWidget {
-  const Bookstore({Key? key}) : super(key: key);
+  const Bookstore({super.key});
 
   @override
   State<Bookstore> createState() => _BookstoreState();
@@ -39,9 +38,12 @@ class _BookstoreState extends State<Bookstore> {
     _routeState = RouteState(_routeParser);
 
     _routerDelegate = SimpleRouterDelegate(
-        routeState: _routeState,
-        builder: (context) => BookstoreNavigator(navigatorKey: _navigatorKey),
-        navigatorKey: _navigatorKey);
+      routeState: _routeState,
+      navigatorKey: _navigatorKey,
+      builder: (context) => BookstoreNavigator(
+        navigatorKey: _navigatorKey,
+      ),
+    );
 
     _auth.addListener(_handleAuthStateChanged);
 
@@ -50,19 +52,26 @@ class _BookstoreState extends State<Bookstore> {
 
   @override
   Widget build(BuildContext context) => RouteStateScope(
-      notifier: _routeState,
-      child: MaterialApp.router(
-        routerDelegate: _routerDelegate,
-        routeInformationParser: _routeParser,
-        theme: ThemeData(
-            pageTransitionsTheme: const PageTransitionsTheme(builders: {
-          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
-        })),
-      ));
+        notifier: _routeState,
+        child: BookstoreAuthScope(
+          notifier: _auth,
+          child: MaterialApp.router(
+            routerDelegate: _routerDelegate,
+            routeInformationParser: _routeParser,
+            theme: ThemeData(
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                  TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+                  TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+                  TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+                },
+              ),
+            ),
+          ),
+        ),
+      );
 
   Future<ParsedRoute> _guard(ParsedRoute from) async {
     final signedIn = _auth.signedIn;
