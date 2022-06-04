@@ -6,7 +6,9 @@ import '../routing/route_state.dart';
 import '../widgets/book_list.dart';
 
 class BooksScreen extends StatefulWidget {
-  const BooksScreen({super.key});
+  const BooksScreen({
+    super.key,
+  });
 
   @override
   State<BooksScreen> createState() => _BooksScreenState();

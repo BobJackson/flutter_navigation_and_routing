@@ -5,7 +5,9 @@ import '../routing/route_state.dart';
 import 'scaffold_body.dart';
 
 class BookstoreScaffold extends StatelessWidget {
-  const BookstoreScaffold({Key? key}) : super(key: key);
+  const BookstoreScaffold({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
